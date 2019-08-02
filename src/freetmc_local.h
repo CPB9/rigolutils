@@ -4,7 +4,7 @@
 
 #include "freetmc.h"
 #include <set>
-#include <libusb-1.0/libusb.h>
+#include <libusb.h>
 //******************************************************************************
 
 struct TMC_Descriptor;
@@ -18,7 +18,7 @@ class TMC_LocalDevice: public TMC_Device {
     virtual size_t Write(const uint8_t * msg, size_t len);
     
     virtual void StartRead(uint8_t * msg, size_t nbytes);
-    virtual ssize_t FinishRead(uint8_t * msg, size_t nbytes);
+    virtual int FinishRead(uint8_t * msg, size_t nbytes);
 };
 
 struct DevIdent {

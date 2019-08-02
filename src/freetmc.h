@@ -35,7 +35,7 @@ class TMC_Device {
     virtual size_t Write(const std::string & msg) {return Write((const uint8_t*)&msg[0], msg.size());}
     
     virtual void StartRead(uint8_t * msg, size_t nbytes) = 0;
-    virtual ssize_t FinishRead(uint8_t * msg, size_t nbytes) = 0;
+    virtual int FinishRead(uint8_t * msg, size_t nbytes) = 0;
     virtual size_t Read(uint8_t * msg, size_t nbytes) {
         StartRead(msg, nbytes);
         return FinishRead(msg, nbytes);
@@ -51,7 +51,7 @@ class TMC_Device {
     void Cmd(const std::string & opt) {Write(opt);}
     void CmdVA(const std::string & format, va_list ap) {
         char * fstr;
-        vasprintf(&fstr, format.c_str(), ap);
+        //vasprintf(&fstr, format.c_str(), ap);
         if(fstr != NULL) {
             Write(fstr);
             free(fstr);
@@ -59,7 +59,7 @@ class TMC_Device {
     }
     void CmdF(const std::string & format, ...) {
         va_list ap;
-        va_start(ap, format);
+/*        va_start(ap, format);*/
         CmdVA(format, ap);
         va_end(ap);
     }
@@ -73,18 +73,18 @@ class TMC_Device {
     }
     std::string QueryF(size_t maxSize, const std::string & format, ...) {
         va_list ap;
-        va_start(ap, format);
+/*        va_start(ap, format);*/
         CmdVA(format, ap);
-        va_end(ap);
+//        va_end(ap);
         std::vector<uint8_t> resp;
         Read(resp, maxSize);
         return std::string(resp.begin(), resp.end());
     }
     std::string QueryF(const std::string & format, ...) {
         va_list ap;
-        va_start(ap, format);
+//        va_start(ap, format);
         CmdVA(format, ap);
-        va_end(ap);
+//        va_end(ap);
         std::vector<uint8_t> resp;
         Read(resp, 1024);
         return std::string(resp.begin(), resp.end());
@@ -99,9 +99,9 @@ class TMC_Device {
     // Query returning floating point parameter
     double FloatQuery(const std::string & format, ...) {
         va_list ap;
-        va_start(ap, format);
+//        va_start(ap, format);
         CmdVA(format, ap);
-        va_end(ap);
+//        va_end(ap);
         std::vector<uint8_t> resp;
         Read(resp, 1024);
         return strtod((char *)&resp[0], NULL);
@@ -110,9 +110,9 @@ class TMC_Device {
     // Query returning integer parameter
     int64_t IntQuery(const std::string & format, ...) {
         va_list ap;
-        va_start(ap, format);
+//        va_start(ap, format);
         CmdVA(format, ap);
-        va_end(ap);
+//        va_end(ap);
         std::vector<uint8_t> resp;
         Read(resp, 1024);
         return strtol((char *)&resp[0], NULL, 0);

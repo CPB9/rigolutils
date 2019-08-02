@@ -322,7 +322,7 @@ void TMC_LocalDevice::StartRead(uint8_t * msg, size_t nbytes)
 }
 
 
-ssize_t TMC_LocalDevice::FinishRead(uint8_t * msg, size_t nbytes)
+int TMC_LocalDevice::FinishRead(uint8_t * msg, size_t nbytes)
 {
     int r;
     // Read data

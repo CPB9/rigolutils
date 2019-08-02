@@ -7,17 +7,16 @@
 #include <cstdio>
 #include <stdarg.h>
 
-
 #if(1)
 #define FORMATTED_ERROR_CONS  \
     va_list ap; \
     va_start(ap, format); \
     char * fstr; \
-    vasprintf(&fstr, format.c_str(), ap); \
+    /*vasprintf(&fstr, format.c_str(), ap); \
     if(fstr != NULL) { \
         msg = fstr; \
         free(fstr); \
-    } \
+    }*/ \
     va_end(ap);
 #else
 #define FORMATTED_ERROR_CONS \
@@ -33,7 +32,7 @@ class FormattedError: public std::exception {
   protected:
     std::string msg;
   public:
-    FormattedError(const std::string & format, ...) {FORMATTED_ERROR_CONS}
+    FormattedError(const std::string & format, ...) {/*FORMATTED_ERROR_CONS*/}
     virtual ~FormattedError() throw() {}
     virtual const char* what() const throw() {return msg.c_str();}
 };
