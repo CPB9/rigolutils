@@ -136,7 +136,6 @@ void ListUSB_Devices(const std::set<uint32_t> & VIDPIDs,
         libusb_device_handle * hand;
         int r = libusb_open(*dev, &hand);
         if(r < 0) {
-            fprintf(stderr, "couldn't open device\n");
             continue;
         }
         
@@ -184,7 +183,6 @@ TMC_LocalDevice::TMC_LocalDevice(uint16_t vendID, uint16_t prodID, const std::st
         // fprintf(stderr, "libusb_open:\n");
         r = libusb_open(*dev, &hand);
         if(r < 0) {
-            fprintf(stderr, "couldn't open device\n");
             continue;
         }
         
