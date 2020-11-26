@@ -1,7 +1,7 @@
 project('rigolutils', ['c', 'cpp'], default_options : ['c_std=c99'])
 
 
-libusb_dep = dependency('libusb-1.0')
+libusb_dep = dependency('libusb-1.0', required: false)
 if not libusb_dep.found()
     message('Using bundled libusb')
     libusb = subproject('libusb')
