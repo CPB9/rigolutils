@@ -1,7 +1,12 @@
 project('rigolutils', ['c', 'cpp'], default_options : ['c_std=c99'])
 
-libusb = subproject('libusb')
-libusb_dep = libusb.get_variable('libusb_dep')
+
+libusb_dep = dependency('libusb-1.0')
+if not libusb_dep.found()
+    message('Using bundled libusb')
+    libusb = subproject('libusb')
+    libusb_dep = libusb.get_variable('libusb_dep')
+endif
 
 src = [
 	'src/freetmc_local.cpp',
